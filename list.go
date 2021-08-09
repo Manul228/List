@@ -289,6 +289,8 @@ func RemoveNthFromEnd(head *ListNode, n int) *ListNode {
 	if prev != nil {
 		prev.Next = current.Next
 		current.Next.Prev = prev
+	} else {
+		return current.Next
 	}
 
 	return head
