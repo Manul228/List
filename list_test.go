@@ -180,6 +180,100 @@ func TestIntersectSimple(t *testing.T) {
 	tl1.Tail = tl.Tail
 	tl2.Tail = tl.Tail
 
-	PrintMe(tl1.Head)
-	PrintMe(tl2.Head)
+	if GetIntersectionNode(tl1.Head, tl2.Head) != tl.Head {
+		t.Error("wrong")
+	}
+}
+
+func TestIntersectShorts(t *testing.T) {
+	tl1 := Constructor()
+	tl2 := Constructor()
+
+	tl1.AddAtTail(1)
+
+	tl2.AddAtTail(1)
+
+	// tl1.Tail.Next = tl2.Head
+	// tl2.Tail.Next = tl1.Head
+
+	// PrintMe(tl1.Head)
+	// PrintMe(tl2.Head)
+
+	if GetIntersectionNode(tl1.Head, tl1.Head) != tl1.Head {
+		t.Error("wrong")
+	}
+}
+
+func TestGetListLengthSimple(t *testing.T) {
+	tl1 := Constructor()
+
+	tl1.AddAtTail(1)
+	tl1.AddAtTail(2)
+	tl1.AddAtTail(3)
+	tl1.AddAtTail(4)
+
+	res := getListLength(tl1.Head)
+
+	if res != 4 {
+		t.Errorf("returned %v when len is 4", res)
+	}
+}
+
+func TestGetListLengthEmpty(t *testing.T) {
+	tl1 := Constructor()
+
+	res := getListLength(tl1.Head)
+
+	if res != 0 {
+		t.Error("wrong")
+	}
+}
+
+func TestRemoveNthFromEndSimple(t *testing.T) {
+	tl := Constructor()
+
+	tl.AddAtTail(1)
+	tl.AddAtTail(2)
+	tl.AddAtTail(3)
+	tl.AddAtTail(4)
+	tl.AddAtTail(5)
+
+	res := RemoveNthFromEnd(tl.Head, 2)
+
+	PrintMe(res)
+
+	if getListLength(res) != 4 {
+		t.Error("bad removement")
+	}
+
+	if tl.Get(2) != 3 || tl.Get(3) != 5 {
+		t.Error("wrong val")
+	}
+}
+
+func TestRemoveNthFromEndOne(t *testing.T) {
+	tl := Constructor()
+
+	tl.AddAtTail(1)
+
+	res := RemoveNthFromEnd(tl.Head, 1)
+
+	if getListLength(res) != 0 {
+		t.Error("bad removement")
+	}
+}
+
+func TestRemoveNthFromEndOneTwo(t *testing.T) {
+	tl := Constructor()
+
+	tl.AddAtTail(1)
+	tl.AddAtTail(2)
+
+	res := RemoveNthFromEnd(tl.Head, 2)
+
+	PrintMe(res)
+
+	if getListLength(res) != 1 {
+		t.Error("bad removement")
+	}
 }

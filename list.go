@@ -136,6 +136,9 @@ func (this *MyLinkedList) DeleteAtIndex(index int) {
 
 /*PrintMe Prints ll*/
 func PrintMe(head *ListNode) {
+	if head == nil {
+		return
+	}
 	current := head
 	for current.Next != nil {
 
@@ -213,6 +216,80 @@ func DetectCycle(head *ListNode) *ListNode {
 	return fast
 }
 
-// func GetIntersectionNode(headA, headB *ListNode) *ListNode {
+func GetIntersectionNode(headA, headB *ListNode) *ListNode {
+	if headA == nil || headB == nil {
+		return nil
+	}
 
-// }
+	lenA := getListLength(headA)
+	lenB := getListLength(headB)
+
+	diff := lenA - lenB
+
+	if diff < 0 {
+		diff = -diff
+	}
+
+	if lenA > lenB {
+		for diff != 0 {
+			headA = headA.Next
+			diff--
+		}
+	} else {
+		for diff != 0 {
+			headB = headB.Next
+			diff--
+		}
+	}
+
+	for headA != headB && headA != nil && headB != nil {
+		headA = headA.Next
+		headB = headB.Next
+	}
+
+	return headA
+}
+
+func getListLength(head *ListNode) int {
+	if head == nil {
+		return 0
+	}
+	it := head
+	count := 0
+
+	for it.Next != nil {
+		it = it.Next
+		count++
+	}
+	return count + 1
+}
+
+func RemoveNthFromEnd(head *ListNode, n int) *ListNode {
+
+	len := getListLength(head)
+	if len == 1 || n > len || n < 1 {
+		return nil
+	}
+
+	removeIndex := len - n
+	current := head
+	var prev *ListNode
+
+	for {
+		fmt.Println(removeIndex, current, prev)
+
+		if removeIndex == 0 {
+			break
+		}
+		removeIndex--
+		prev = current
+		current = current.Next
+	}
+
+	if prev != nil {
+		prev.Next = current.Next
+		current.Next.Prev = prev
+	}
+
+	return head
+}
