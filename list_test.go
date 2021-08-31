@@ -277,3 +277,34 @@ func TestRemoveNthFromEndOneTwo(t *testing.T) {
 		t.Error("bad removement")
 	}
 }
+
+func TestRemoveElements6(t *testing.T) {
+	tl := Constructor()
+	tl.AddAtTail(1)
+	tl.AddAtTail(2)
+	tl.AddAtTail(6)
+	tl.AddAtTail(3)
+	tl.AddAtTail(4)
+	tl.AddAtTail(5)
+	tl.AddAtTail(6)
+
+	res := RemoveElements(tl.Head, 6)
+
+	if getListLength(res) != 5 {
+		t.Error("bad removeElements 1-6")
+	}
+}
+
+func TestRemoveElements7(t *testing.T) {
+	tl := Constructor()
+	tl.AddAtTail(7)
+	tl.AddAtTail(7)
+	tl.AddAtTail(7)
+	tl.AddAtTail(7)
+
+	res := RemoveElements(tl.Head, 7)
+
+	if getListLength(res) != 0 {
+		t.Error("bad removeElements 7")
+	}
+}

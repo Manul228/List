@@ -295,3 +295,44 @@ func RemoveNthFromEnd(head *ListNode, n int) *ListNode {
 
 	return head
 }
+
+func ReverseList(head *ListNode) *ListNode {
+	current := head
+	var prev *ListNode
+
+	for current != nil {
+		next := current.Next
+		current.Next = prev
+		prev = current
+		current = next
+	}
+	return prev
+}
+
+func RemoveElements(head *ListNode, val int) *ListNode {
+	current := head
+	var prev *ListNode
+
+	for current != nil && current.Next != nil {
+		if current.Val == val {
+			if prev != nil {
+				prev.Next = current.Next
+			} else {
+				head = current.Next
+			}
+		} else {
+			prev = current
+		}
+		current = current.Next
+	}
+
+	if current != nil && current.Next == nil && current.Val == val {
+		if prev != nil {
+			prev.Next = nil
+		} else {
+			head = nil
+		}
+	}
+
+	return head
+}
