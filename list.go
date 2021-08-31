@@ -336,3 +336,22 @@ func RemoveElements(head *ListNode, val int) *ListNode {
 
 	return head
 }
+
+func OddEvenList(head *ListNode) *ListNode {
+	if head == nil {
+		return nil
+	}
+
+	odd, even, evenHead := head, head.Next, head.Next
+
+	for even != nil && even.Next != nil {
+		odd.Next = even.Next
+		odd = odd.Next
+		even.Next = odd.Next
+		even = even.Next
+	}
+
+	odd.Next = evenHead
+
+	return head
+}
